@@ -14,7 +14,7 @@ $secret_key = "VDna1dsFeuF4EgA6"; // Secret key provided by the gateway, ask ser
 // Build the data array
 $data = [
     "app_id" => $app_id,
-    "trade_type" => "INR",  // ask service provider
+    "trade_type" => "INRUPI",  // ask service provider
     "order_sn" =>  "p".time(),
     "money" => 100 *100,
     "notify_url" => "http://139.180.137.164/notify-handler.php", // Your notify URL
