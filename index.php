@@ -11,12 +11,14 @@ function md5_sign($data, $key) {
 $app_id = "YD3644";  // ask service provider"; // Your app ID, ask service provider
 $secret_key = "VDna1dsFeuF4EgA6"; // Secret key provided by the gateway, ask service provider
 
+$amount = isset($_GET['amount']) ? (float) $_GET['amount'] : 100;
+
 // Build the data array
 $data = [
     "app_id" => $app_id,
     "trade_type" => "inrupi",  // ask service provider
     "order_sn" =>  "p".time(),
-    "money" => (int) (200 *100),
+    "money" => ($amount * 100), // Amount in paise (₹100 ),
     "notify_url" => "http://139.180.137.164/notify-handler.php", // Your notify URL
     "ip" => "0.0.0.0", // if u dont have ip then use 0.0.0.0  
     "remark" => "Test order from PHP", // fill your remark
