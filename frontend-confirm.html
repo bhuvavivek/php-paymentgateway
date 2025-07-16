@@ -1,0 +1,22 @@
+<script>
+  const orderSn = "p1721145156"; // Replace dynamically if needed
+
+  function checkPaymentStatus() {
+    fetch(`http://your-server-ip/check-payment.php?order_sn=${orderSn}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'paid') {
+          alert("✅ Payment Successful!");
+          // Optionally redirect or update UI
+        } else if (data.status === 'not_found') {
+          console.log("⏳ Payment not confirmed yet...");
+        } else {
+          console.log("❌ Payment failed or unknown status.");
+        }
+      })
+      .catch(err => console.error("Fetch error:", err));
+  }
+
+  // Poll every 5 seconds
+  setInterval(checkPaymentStatus, 5000);
+</script>

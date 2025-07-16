@@ -16,11 +16,11 @@ $amount = isset($_GET['amount']) ? (float) $_GET['amount'] : 100;
 // Build the data array
 $data = [
     "app_id" => $app_id,
-    "trade_type" => "inrupi",  // ask service provider
+    "trade_type" => "INRUPI",  // ask service provider
     "order_sn" =>  "p".time(),
     "money" => ($amount * 100), // Amount in paise (₹100 ),
-    "notify_url" => "http://139.180.137.164/notify-handler.php", // Your notify URL
-    "ip" => "0.0.0.0", // if u dont have ip then use 0.0.0.0  
+    "notify_url" => "http://69.62.70.178/notify.php", // Your notify URL
+    "ip" =>$_SERVER['REMOTE_ADDR'], // if u dont have ip then use 0.0.0.0  
     "remark" => "Test order from PHP", // fill your remark
 ];
 
@@ -45,7 +45,12 @@ $response = curl_exec($ch);
 if (curl_errno($ch)) {
     echo "cURL Error: " . curl_error($ch);
 } else {
-    echo $response;
+    header('Content-Type: application/json');
+    echo json_encode([
+        'request_data' => $data,
+        'response' => json_decode($response, true),
+        'order_sn' => $data["order_sn"]
+    ]);
 }
 
 // Close cURL
